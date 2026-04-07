@@ -3,4 +3,6 @@ name = "ip1"
 version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "click>=8.3.2",
+]

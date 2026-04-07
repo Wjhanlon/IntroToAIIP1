@@ -12,8 +12,8 @@ from search import astar_search
 #  |_____|_| |_| |_| .__/ \___/|_|   \__\__,_|_| |_|\__|
 #                  | |
 #                  |_|
-# YOUR NAME: ???
-# YOUR WPI ID: ???
+# YOUR NAME: William Hanlon
+# YOUR WPI ID:
 # FINISH THE ASSIGNMENT IN `sokoban.py` AND `search.py`
 # YOU MAY MODIFY THIS FILE BUT THE COMMAND LINE INTERFACE MUST REMAIN UNCHANGED
 # REQUIRED PACKAGES: click
