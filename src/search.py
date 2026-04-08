@@ -16,9 +16,9 @@ def astar_search(problem, h=None):
     # Be sure to read about hints in the IP 1 description.
 
     node = Node(problem.start)
-    #min prio queue? define hueristic and then put into prio queue as lambda cost. Minimize the n: n.path_cost + h(n)
     frontier = PriorityQueue()
-    frontier.append(node)
+    frontier.put(node, h(node))
+
 
     #repeated state detection
     explored = set()
@@ -33,12 +33,13 @@ def astar_search(problem, h=None):
 
         #expand Node
         for child in node.expand():
+            f = child.path_cost + h(child)
             if child not in explored and child not in frontier:
-                frontier.append(child)
+                frontier.put(child, f)
             elif child in frontier:
-                if frontier[child] > child.path_cost() + h(child):
-                    frontier.remove(child)
-                    frontier.append(child)
+                if frontier[child] > f:
+
+                    frontier.update_priority(child, f)
 
     return None
 
