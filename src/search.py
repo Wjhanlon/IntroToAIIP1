@@ -15,7 +15,7 @@ def astar_search(problem, h=None):
     h = memoize(h or problem.h)
     # Be sure to read about hints in the IP 1 description.
 
-    node = Node(problem.start)
+    node = Node(problem.initial)
     frontier = PriorityQueue()
     frontier.put(node, h(node))
 
@@ -24,17 +24,17 @@ def astar_search(problem, h=None):
     explored = set()
 
     while frontier:
-        node = frontier.pop()
+        node, _ = frontier.pop()
 
-        if node.state == problem.goal:
+        if problem.is_goal(node.state):
             return node
 
         explored.add(node.state)
 
         #expand Node
-        for child in node.expand():
+        for child in node.expand(problem):
             f = child.path_cost + h(child)
-            if child not in explored and child not in frontier:
+            if child.state not in explored and child not in frontier:
                 frontier.put(child, f)
             elif child in frontier:
                 if frontier[child] > f:
@@ -54,7 +54,4 @@ def ucs_search(problem):
     #    | | (_) | |_| | |    | |__| (_) | (_| |  __/  |  _  |  __/ | |  __/
     #    |_|\___/ \__,_|_|     \____\___/ \__,_|\___|  |_| |_|\___|_|  \___|
 
-    astar_search(problem, lambda n: 0)
-
-
-    return None
+    return astar_search(problem, lambda n: 0)

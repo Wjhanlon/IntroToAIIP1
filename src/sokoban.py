@@ -41,4 +41,4 @@ class Sokoban(Problem):
         """Heuristic function for the problem. This should return a
         non-negative estimate of the cost to reach the goal from the
         given state."""
-        raise NotImplementedError
+        return 1
