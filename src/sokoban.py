@@ -16,9 +16,10 @@ class Sokoban(Problem):
         Initializes the Sokoban problem.
         :param board: List of strings, each string represent a row of the game board
         """
-        raise NotImplementedError
-        # Remember to call the parent constructor with initial state
-        # super().__init__(...)
+        self.rows = len(board)
+        self.columns = len(board[0])
+        initial_state = tuple(tuple(row) for row in board)
+        super().__init__(initial_state)
 
     def actions(self, state):
         """Returns the list of valid actions from the current state."""
@@ -30,7 +31,11 @@ class Sokoban(Problem):
 
     def is_goal(self, state):
         """Checks if all boxes are on goal positions."""
-        raise NotImplementedError
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if state[row][col] == '.':
+                    return False
+        return True
 
     def h(self, state):
         """Heuristic function for the problem. This should return a
