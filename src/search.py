@@ -54,19 +54,7 @@ def ucs_search(problem):
     #    | | (_) | |_| | |    | |__| (_) | (_| |  __/  |  _  |  __/ | |  __/
     #    |_|\___/ \__,_|_|     \____\___/ \__,_|\___|  |_| |_|\___|_|  \___|
 
-    node = Node(problem.start)
-    frontier = PriorityQueue()
-    frontier.append(node)
-
-    explored = set()
-
-    while frontier:
-        node = frontier.pop()
-        if node.state == problem.goal:
-            return node
-        explored.add(node.state)
-
-        for child in node.expand():
+    astar_search(problem, lambda n: 0)
 
 
     return None
