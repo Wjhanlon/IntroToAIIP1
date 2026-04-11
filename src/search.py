@@ -1,6 +1,7 @@
 from problem import Node
 from utils import memoize, PriorityQueue
 
+
 def astar_search(problem, h=None):
     """A* search is best-first graph search with f(n) = g(n) + h(n).
     You need to specify the h function when you call astar_search, or
@@ -19,8 +20,6 @@ def astar_search(problem, h=None):
     frontier = PriorityQueue()
     frontier.put(node, h(node.state))
 
-
-    #repeated state detection
     explored = set()
 
     while frontier:
@@ -31,7 +30,6 @@ def astar_search(problem, h=None):
 
         explored.add(node.state)
 
-        #expand Node
         for child in node.expand(problem):
             f = child.path_cost + h(child.state)
             if child.state not in explored and child not in frontier:
@@ -42,6 +40,7 @@ def astar_search(problem, h=None):
                     frontier.update_priority(child, f)
 
     return None
+
 
 def ucs_search(problem):
     """Uniform Cost Search (UCS) is a search algorithm that expands the least

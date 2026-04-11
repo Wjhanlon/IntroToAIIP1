@@ -5,6 +5,8 @@ from problem import Problem
 #   \ V / _ \| | | | '__| | |   / _ \ / _` |/ _ \  | |_| |/ _ \ '__/ _ \
 #    | | (_) | |_| | |    | |__| (_) | (_| |  __/  |  _  |  __/ | |  __/
 #    |_|\___/ \__,_|_|     \____\___/ \__,_|\___|  |_| |_|\___|_|  \___|
+
+
 class Sokoban(Problem):
     """
     A Sokoban problem instance for search algorithms.
@@ -14,8 +16,15 @@ class Sokoban(Problem):
     def __init__(self, board):
         """
         Initializes the Sokoban problem.
-        :param board: List of strings, each string represent a row of the game board
+        :param board: List of strings,
+        each string represent a row of the game board
         """
+        clean_board = []
+        for row in board:
+            stripped = row.rstrip('\n')
+            if stripped:
+                clean_board.append(stripped)
+        board = clean_board
         self.rows = len(board)
         self.columns = len(board[0])
         initial_state = tuple(tuple(row) for row in board)
@@ -42,15 +51,24 @@ class Sokoban(Problem):
             if state[new_row][new_col] == '%':
                 continue
 
-            if state[new_row][new_col] == 'b' or state[new_row][new_col] == 'B':
+            if (state[new_row][new_col] == 'b' or
+                    state[new_row][new_col] == 'B'):
                 box_row = new_row + direction_row
                 box_col = new_col + direction_col
-                if state[box_row][box_col] == '%' or state[box_row][box_col] == 'b' or state[box_row][box_col] == 'B':
+                if (state[box_row][box_col] == '%' or
+                        state[box_row][box_col] == 'b' or
+                        state[box_row][box_col] == 'B'):
                     continue
+
+                if ((state[box_row - 1][box_col] == '%' or
+                    state[box_row + 1][box_col] == '%') and
+                        (state[box_row][box_col - 1] == '%' or
+                         state[box_row][box_col + 1] == '%')):
+                    if state[box_row][box_col] != '.':
+                        continue
 
             valid_actions.append(direction)
         return valid_actions
-
 
     def result(self, state, action):
         """Returns the resulting state after applying the action."""
@@ -70,7 +88,8 @@ class Sokoban(Problem):
         new_row = player_row + direction_row
         new_col = player_col + direction_col
 
-        if new_state[new_row][new_col] == 'b' or new_state[new_row][new_col] == 'B':
+        if (new_state[new_row][new_col] == 'b' or
+                new_state[new_row][new_col] == 'B'):
             box_row = new_row + direction_row
             box_col = new_col + direction_col
 
