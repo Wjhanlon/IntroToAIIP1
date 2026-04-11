@@ -61,7 +61,7 @@ class Sokoban(Problem):
 
         for row in range(self.rows):
             for col in range(self.columns):
-                if new_state[row][col] == 'P' or state[row][col] == '#':
+                if new_state[row][col] == 'P' or new_state[row][col] == '#':
                     player_row = row
                     player_col = col
 
@@ -109,4 +109,24 @@ class Sokoban(Problem):
         """Heuristic function for the problem. This should return a
         non-negative estimate of the cost to reach the goal from the
         given state."""
-        return 1
+        total_cost = 0
+        boxes = []
+        goals = []
+
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if state[row][col] == '.' or state[row][col] == '#':
+                    goals.append((row, col))
+                if state[row][col] == 'b':
+                    boxes.append((row, col))
+
+        for box in boxes:
+            nearest = float('inf')
+            for goal in goals:
+                distance = abs(box[0] - goal[0]) + abs(box[1] - goal[1])
+                if distance < nearest:
+                    nearest = distance
+
+            total_cost += nearest
+
+        return total_cost

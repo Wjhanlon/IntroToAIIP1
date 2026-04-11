@@ -17,7 +17,7 @@ def astar_search(problem, h=None):
 
     node = Node(problem.initial)
     frontier = PriorityQueue()
-    frontier.put(node, h(node))
+    frontier.put(node, h(node.state))
 
 
     #repeated state detection
@@ -33,7 +33,7 @@ def astar_search(problem, h=None):
 
         #expand Node
         for child in node.expand(problem):
-            f = child.path_cost + h(child)
+            f = child.path_cost + h(child.state)
             if child.state not in explored and child not in frontier:
                 frontier.put(child, f)
             elif child in frontier:
