@@ -1,3 +1,5 @@
+import math
+
 from problem import Problem
 
 #  __   __                  ____          _         _   _
@@ -142,6 +144,7 @@ class Sokoban(Problem):
         for box in boxes:
             nearest = float('inf')
             for goal in goals:
+                # distance = math.dist((box[0], box[1]), (goal[0], goal[1]))
                 distance = abs(box[0] - goal[0]) + abs(box[1] - goal[1])
                 if distance < nearest:
                     nearest = distance
